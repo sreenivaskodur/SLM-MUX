@@ -1,0 +1,13 @@
+# Core dependencies
+datasets>=2.14.0
+tqdm>=4.65.0
+requests>=2.31.0
+
+# API clients
+together>=0.2.0
+openai>=1.0.0
+
+# Optional dependencies for specific features
+# pytest>=7.4.0  # For running tests
+# black>=23.0.0  # For code formatting
+# mypy>=1.5.0    # For type checking
