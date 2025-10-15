@@ -14,12 +14,12 @@ from tqdm import tqdm
 from datasets import load_dataset
 
 # === Keep GPQA utility functions ===
-from utils.GPQA_utils import (
+from utils.gpqa_utils import (
     extract_answer_gpqa,
 )
 
 # === Change to import the call function for Together API ===
-from utils.together_utils import call_model_together
+from utils.api_client import call_model_together
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -74,7 +74,7 @@ def parse_arguments():
                         help='Concurrent threads for processing (default 1 for determinism)')
     parser.add_argument('--seed', type=int, default=42,
                         help='Random seed')
-    parser.add_argument('--dataset_path', type=str, default="Datasets/shuffled_gpqa.json",
+    parser.add_argument('--dataset_path', type=str, default="data/gpqa_shuffled.json",
                         help='Path to the GPQA dataset JSON file')
     parser.add_argument('--output_dir', type=str, default="./GPQA_response",
                         help='Directory to save benchmark results')

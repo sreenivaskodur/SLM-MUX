@@ -24,7 +24,7 @@ from utils.math_utils import extract_answer_math, normalize_answer
 ##############################################################################
 # Call Together API
 ##############################################################################
-from utils.together_utils import call_model_together
+from utils.api_client import call_model_together
 
 ##############################################################################
 # 1. Prompt Generation Related
@@ -564,7 +564,7 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(script_dir)
     # Assumed new dataset file path
-    default_dataset = os.path.join(parent_dir, "Datasets/MATH_500.json")
+    default_dataset = os.path.join(parent_dir, "data/math_500.json")
     default_summary = os.path.join(parent_dir, "prompt_tuning_results/MATH_multi_krep/2025-09-03_15-35-48/summary.json")
 
     parser = argparse.ArgumentParser(description="Run Hierarchy Consistency from scratch by calling models.")

@@ -19,8 +19,8 @@ from datetime import datetime
 from typing import List, Dict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from utils.together_utils import call_model_together  # unchanged dependency
-from utils.GSM_utils import extract_answer_gsm, normalize_answer, create_chat_prompt
+from utils.api_client import call_model_together  # unchanged dependency
+from utils.gsm_utils import extract_answer_gsm, normalize_answer, create_chat_prompt
 
 from tqdm import tqdm
 from datasets import load_dataset
@@ -74,7 +74,7 @@ def main():
 
 
 
-    with open("Datasets/GSM_500.json", "r", encoding="utf-8") as f:
+    with open("data/gsm8k_500.json", "r", encoding="utf-8") as f:
         data_list = json.load(f)
     if 0 < args.sample_size < len(data_list):
         data_list = random.sample(data_list, args.sample_size)

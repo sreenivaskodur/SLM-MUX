@@ -12,8 +12,8 @@ import asyncio
 from tqdm import tqdm
 
 # Project utils
-from utils.together_utils import call_model_together
-from utils.GSM_utils import extract_answer_gsm, normalize_answer, create_chat_prompt
+from utils.api_client import call_model_together
+from utils.gsm_utils import extract_answer_gsm, normalize_answer, create_chat_prompt
 
 ##############################################################################
 # Prompt builder (original style, aligned with collector)
@@ -436,7 +436,7 @@ def main(dataset_file, model_list_str, extra_calls, size, num_workers, temperatu
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(script_dir)
-    default_dataset = os.path.join(parent_dir, "Datasets/GSM_500.jsonl")
+    default_dataset = os.path.join(parent_dir, "data/gsm8k_500.json")
 
     parser = argparse.ArgumentParser(description="Run Hierarchy Consistency for GSM from scratch by calling models.")
     parser.add_argument("--dataset_file", default=default_dataset, help="Path to the GSM dataset file (.json or .jsonl)")
