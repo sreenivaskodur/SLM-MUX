@@ -329,7 +329,7 @@ def parse_arguments():
     parser.add_argument('--max_new_tokens', type=int, default=4096, help='Max tokens in each generation')
     parser.add_argument('--num_threads', type=int, default=50, help='Concurrent threads for processing')
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
-    parser.add_argument('--dataset_path', type=str, default='Datasets/MATH_500.json', help='Path to the MATH_500 dataset JSON file')
+    parser.add_argument('--dataset_path', type=str, default='data/math_500.json', help='Path to the MATH_500 dataset JSON file')
     parser.add_argument('--output_dir', type=str, default='./MATH_500_response', help='Directory to save benchmark results')
     parser.add_argument('--verify_mode', type=str, choices=['llm', 'rule'], default='llm',
                         help='Answer verification mode: llm (GPT-4o judge) or rule (string equality)')

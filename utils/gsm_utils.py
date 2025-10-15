@@ -28,6 +28,11 @@ def normalize_answer(ans: str) -> str:
     return ans
 
 
+def normalize_final_answer(ans: str) -> str:
+    """Backward-compatible alias for GSM final answer normalization."""
+    return normalize_answer(ans)
+
+
 def create_chat_prompt(system_msg: str, user_msg: str):
     """
     Returns a chat structure in the form:

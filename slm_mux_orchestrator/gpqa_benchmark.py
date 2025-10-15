@@ -12,9 +12,9 @@ from typing import Optional, Dict, Any
 from tqdm import tqdm
 
 # GPQA-specific tools (for building prompts and answer extraction)
-from utils.GPQA_utils import build_prompt_gpqa, extract_answer_gpqa
+from utils.gpqa_utils import build_prompt_gpqa, extract_answer_gpqa
 # Together API calling tools
-from utils.together_utils import call_model_together
+from utils.api_client import call_model_together
 
 
 ##############################################################################
@@ -436,7 +436,7 @@ def main(dataset_file, model_list_str, extra_calls, size, num_workers):
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(script_dir)
-    default_dataset = os.path.join(parent_dir, "Datasets/shuffled_gpqa.json")
+    default_dataset = os.path.join(parent_dir, "data/gpqa_shuffled.json")
 
     parser = argparse.ArgumentParser(description="Run GPQA from scratch by calling Together models with self-consistency.")
     parser.add_argument("--dataset_file", default=default_dataset, help="Path to the GPQA dataset (.json or .jsonl).")
