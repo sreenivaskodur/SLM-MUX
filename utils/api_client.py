@@ -17,11 +17,19 @@ except Exception:
 def unify_model_name(model_name: str) -> str:
     """
     Simple example:
-    - Replace underscores '_' in the incoming model_name with slashes '/'.
+    - Replace underscores '_' in the incoming model_name with slashes '/' for standard models.
     - Remove possible replication marker suffixes (e.g., "::rep1") to prevent invalid model names from being sent to the API.
+    - Keep dedicated endpoint names (containing user prefixes) unchanged.
     """
     # Remove suffixes like "model::rep1"
     base_name = model_name.split("::", 1)[0]
+    
+    # If this looks like a dedicated endpoint (has user prefix), don't modify it
+    if base_name.count('_') >= 2 and '/' not in base_name:
+        # Likely a dedicated endpoint like "saisreenivas_6ee0_Qwen_Qwen2.5-7B-Instruct-Turbo-cd09b1e4"
+        return base_name
+    
+    # For standard models, replace underscores with slashes
     return base_name.replace('_', '/')
 
 logger = logging.getLogger(__name__)

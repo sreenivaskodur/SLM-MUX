@@ -46,38 +46,42 @@ export OPENAI_API_KEY="your_openai_api_key"  # Optional, for verification
 
 ### 3. Run SLM-MUX (Main Workflow)
 
+**Important**: Set PYTHONPATH to ensure modules are found:
+```bash
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
+```
+
 **Example: Run SLM-MUX on MATH with 2 models**
 ```bash
-python slm_mux_orchestrator/math_benchmark.py \
-    --data_path data/math_500.json \
-    --output results/math_slmmux_results.json \
-    --models \
-        "mistralai/Mistral-7B-Instruct-v0.3" \
-        "Qwen/Qwen2.5-7B-Instruct" \
+export TOGETHER_API_KEY="your_together_api_key" && \
+PYTHONPATH="${PWD}:${PYTHONPATH}" python slm_mux_orchestrator/math_benchmark.py \
+    --dataset_file data/math_500.json \
+    --model_list "meta-llama/Llama-3.3-70B-Instruct-Turbo,mistralai/Mistral-7B-Instruct-v0.3" \
     --extra_calls 3
 ```
 
 **Example: Run SLM-MUX on GPQA**
 ```bash
-python slm_mux_orchestrator/gpqa_benchmark.py \
-    --data_path data/gpqa_shuffled.json \
-    --output results/gpqa_slmmux_results.json \
-    --models \
-        "mistralai/Mistral-7B-Instruct-v0.3" \
-        "Qwen/Qwen2.5-7B-Instruct" \
+export TOGETHER_API_KEY="your_together_api_key" && \
+PYTHONPATH="${PWD}:${PYTHONPATH}" python slm_mux_orchestrator/gpqa_benchmark.py \
+    --dataset_file data/gpqa_shuffled.json \
+    --model_list "meta-llama/Llama-3.3-70B-Instruct-Turbo,mistralai/Mistral-7B-Instruct-v0.3" \
     --extra_calls 3
 ```
 
 **Example: Run SLM-MUX on GSM8K**
 ```bash
-python slm_mux_orchestrator/gsm8k_benchmark.py \
-    --data_path data/gsm8k_500.json \
-    --output results/gsm8k_slmmux_results.json \
-    --models \
-        "mistralai/Mistral-7B-Instruct-v0.3" \
-        "Qwen/Qwen2.5-7B-Instruct" \
+export TOGETHER_API_KEY="your_together_api_key" && \
+PYTHONPATH="${PWD}:${PYTHONPATH}" python slm_mux_orchestrator/gsm8k_benchmark.py \
+    --dataset_file data/gsm8k_500.json \
+    --model_list "meta-llama/Llama-3.3-70B-Instruct-Turbo,mistralai/Mistral-7B-Instruct-v0.3" \
     --extra_calls 3
 ```
+
+**Optional Parameters:**
+- `--size N`: Process only N problems (useful for testing, e.g., `--size 5`)
+- `--temperature T`: Sampling temperature (default: 0.0)
+- `--num_workers N`: Parallel workers (default: varies by script)
 
 This will:
 1. Query all specified models for each problem
@@ -90,7 +94,8 @@ This will:
 If you want baseline performance for a single model:
 
 ```bash
-python single_model_inference/collect_math.py \
+export TOGETHER_API_KEY="your_together_api_key" && \
+PYTHONPATH="${PWD}:${PYTHONPATH}" python single_model_inference/collect_math.py \
     --dataset data/math_500.json \
     --model "mistralai/Mistral-7B-Instruct-v0.3" \
     --output collected_outputs/math_mistral7b_baseline.json \
@@ -133,7 +138,8 @@ The `single_model_inference/` directory contains scripts for collecting single-m
 
 ```bash
 # Example: Collect MATH responses from a single model
-python single_model_inference/collect_math.py \
+export TOGETHER_API_KEY="your_together_api_key" && \
+PYTHONPATH="${PWD}:${PYTHONPATH}" python single_model_inference/collect_math.py \
     --dataset data/math_500.json \
     --model "mistralai/Mistral-7B-Instruct-v0.3" \
     --output collected_outputs/math_mistral7b_baseline.json \
@@ -148,15 +154,17 @@ For MATH and GSM8K, we provide scripts to verify answer equivalence using GPT-4o
 
 ```bash
 # Check MATH answers
-python evaluation/check_equivalence_math.py \
-    --results results/math_results.json \
-    --output results/math_verified.json
+PYTHONPATH="${PWD}:${PYTHONPATH}" python evaluation/check_equivalence_math.py \
+    -i path/to/math_results.json \
+    -o path/to/math_verified.json
 
-# Check GSM8K answers
-python evaluation/check_equivalence_gsm8k.py \
-    --results results/gsm8k_results.json \
-    --output results/gsm8k_verified.json
+# Check GSM8K answers  
+PYTHONPATH="${PWD}:${PYTHONPATH}" python evaluation/check_equivalence_gsm8k.py \
+    -i path/to/gsm8k_results.json \
+    -o path/to/gsm8k_verified.json
 ```
+
+**Note**: These scripts require OpenAI API access and may hit rate limits. The equivalence checking is optional - your benchmark results are valid without it.
 
 ## 📝 Key Components
 
